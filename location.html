@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <script type="text/javascript" src="scriptcanvas.js"></script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqfB3yOJYQARzWRYEsgPjEBUgJwiPamaE"></script>
+      
+</head>
+<body> 
+  <div id="device-info"></div>
+  <script>
+     function getDeviceInfo() {
+const userAgent = navigator.userAgent;
+const isMobile = /Mobile/.test(userAgent);
+const isTablet = /Tablet/.test(userAgent);
+const isDesktop = !isMobile && !isTablet;
+
+let deviceType;
+if (isMobile) {
+deviceType = 'Mobile';
+} else if (isTablet) {
+deviceType = 'Tablet';
+} else {
+deviceType = 'Desktop';
+}
+
+const deviceInfo = `Device type: ${deviceType}<br>User agent: ${userAgent}`;
+document.getElementById('device-info').innerHTML = deviceInfo;
+}
+
+getDeviceInfo();
+
+
+// location
+function showPosition(position) {
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+  
+    // Create a new map centered on the user's location
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: lat, lng: lng},
+      zoom: 8
+    });
+  
+    // Add a marker to the map at the user's location
+    var marker = new google.maps.Marker({
+      position: {lat: lat, lng: lng},
+      map: map,
+      title: 'Your location'
+    });
+  }
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+
+  
+  </script>
+
+
+    <div id="map" style="height: 400px;"></div>
+<div class="header">
+  <h1>SHOPEWISE ONLINE SHOPPERS</h1>
+</div>
+<div class="navbar">
+    <a href="homepage.php">Home</a>
+  <a href="products.php">Products</a>
+  <a href="cart.php">Cart</a>
+  <a href="register.php">Register</a>
+  <a href="login.php">Sign_in</a>
+  <a href="contact_us.php">Contact Us</a>
+  <a href="location.html">Location</a>
+</div>
+
+</body>
+</html>
